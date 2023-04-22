@@ -427,7 +427,40 @@
         //使用子组件，子组件各自独立，即使使用的变量名相同，也不会互相影响
         template:"<MyButton></MyButton>"
     }
-5. 自动创建项目：
+    ```
+5. 一些问题及解决办法：
+    - template是用字符串的形式在编写模板
+      - 这些内容在项目被运行时，浏览器需要先将它们转换为一个js函数，这样回事性能不太好
+      - 在字符串中进行编写代码，体验极差
+    - 解决方案:
+      - 可以使用单文件组件（SFC），该组件的文件格式为vue(vscode需要安装插件才能支持 vue language features)
+      - vue用来编写单文件组件，但是浏览器并不认识该格式文件，所以必须先使用工具打包后才能使用
+      - vue文件被打包时，构建工具会自动将template准换为函数，无需在由浏览器编译，可以提升性能
+      - 注意，打包需要安装@vitejs/plugin-vue,并创建配置文件vite.config.js,配置如下
+```javascript
+    import vue from "@vitejs/plugin-vue"
+    export default{
+        plugins:[vue()]
+    }
+```
+6. 单文件组件;
+    - 单文件组件格式为vue，在文件内编写时，需要使用script标签将组件内容包裹。
+    - 使用template标签来对模板进行编写，好处是编写体验会很好同时还无需浏览器编译，提升性能，示例如下;
+```javascript
+    <script>
+        export default{
+            data(){
+                return {
+                    count:0
+                }
+            }
+        }
+    </script>
+    <template>
+        <button @click="count++">{{count}}</button>
+    </template>
+```
+7. 自动创建项目：
     - `npm init vue@latest`
     - `yarn create vue`
 
