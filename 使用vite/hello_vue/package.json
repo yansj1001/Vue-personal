@@ -8,5 +8,10 @@
   },
   "dependencies": {
     "vue": "^3.2.47"
+  },
+  "scripts": {
+    "dev":"vite --open",
+    "build":"vite build",
+    "preview":"vite preview"
   }
 }
