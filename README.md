@@ -536,6 +536,19 @@
             const count = $ref(0)
             ```
             - 需要注意的是，该属性是一个实验性的属性，默认是不支持的，需要在vite的插件即vite.config.js文件中的plugins属性的vue插件中传入一个配置对象，将reactiveTransform设置为true
+            - 在模板中自动解包的ref对象，必须是顶层的，即第一个链式调用的数据就必须是响应式的数据，例如
+            ```javascript
+            //此处获取name的值 obj.value.name
+            const obj = ref({
+                name = "孙悟空"
+            })
+            //此处获取name的值 obj2.name.value
+            const obj2 = {
+                name : ref("孙悟空")
+            }
+            //在模板中可以直接通过 obj.name获取到obj中的数据，因为obj整体是响应式对象
+            //或取obj2的值不能通过 obj2.name 获取name的值，因为obj2不是响应式，但是它的属性是，此时obj2是顶层，不属于响应式，不能被解包，获取数据需要使用 obj2.name.value 来获取
+            ```
         -setup
             - 对于setup()中编写的函数，同样需要使用return将其暴露以后才可以在视图中使用
             - 也可以直接在script标签中设置setup属性，会默认使用组合式API
