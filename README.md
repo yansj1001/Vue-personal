@@ -517,15 +517,28 @@
         - setup()是一个钩子函数，可以通过这个函数向外部暴露组件的配置，好处是setup是一个函数，里边可以写任意js代码
         - 在setup()中可以通过返回值来指定哪些内容要暴露给外部，暴露后的内容可以在模板中直接使用
         - 在组合式API中直接声明的变量，就是一个普通的变量，不是响应式变量，在修改这些属性时不会在视图中产生效果
-        - 通过引入reactive，可以使用reactive()来创建一个响应式对象，如下代码中reactive中的参数即为响应式数据，该对象会被赋值给stu，使用return将stu暴露后即可使用定义的响应式数据，修改时视图会产生效果
-        ```javascript
-        const stu = reactive({
-            name:"孙悟空",
-            age:18,
-            gender:"男"
-        })
-        ```
-        - 对于setup()中编写的函数，同样需要使用return将其暴露以后才可以在视图中使用
+        - reactve()
+            - 通过引入reactive，可以使用reactive()来创建一个响应式对象，如下代码中reactive中的参数即为响应式数据，该对象会被赋值给stu，使用return将stu暴露后即可使用定义的响应式数据，修改时视图会产生效果
+            ```javascript
+            const stu = reactive({
+                name:"孙悟空",
+                age:18,
+                gender:"男"
+            })
+            ```
+            - reactive()返回的是一个深层相应对象，该方法只能返回对象的响应式代理，不能处理原始值。
+        - ref()
+            - ref()可以接收一个任意值，并它的返回响应式代理
+            - ref()参数包装成一个对象，再返回它的响应式代理，访问ref对象时，必须使用 对象.value 来访问
+            - 在template标签的模板中，ref对象会自动解包，不需要使用 对象.value 来访问
+            - 可以使用 $ 语法糖，使得ref对象在script标签中也会自动解包，形式如下
+            ```javascript
+            const count = $ref(0)
+            ```
+            - 需要注意的是，该属性是一个实验性的属性，默认是不支持的，需要在vite的插件即vite.config.js文件中的plugins属性的vue插件中传入一个配置对象，将reactiveTransform设置为true
+        -setup
+            - 对于setup()中编写的函数，同样需要使用return将其暴露以后才可以在视图中使用
+            - 也可以直接在script标签中设置setup属性，会默认使用组合式API
 ## 网页的渲染
 
 -   浏览器在渲染页面时，做了那些事：

@@ -1,4 +1,4 @@
-<script>
+<!-- <script>
 import { reactive } from 'vue';
 export default{
     setup(){
@@ -22,11 +22,20 @@ export default{
         }
     }
 }
+</script> -->
+<script setup>
+import { reactive } from 'vue';
+const msg = 111
+//const count = 0
+const stu = reactive({
+    name:"孙悟空",
+    count:0
+})
 </script>
 
 <template>
-    <p>{{ name }}</p>
-    <p>{{ count }}</p>
-    <button @click="changeAge">点我一下</button>
-    <h1>{{ stu.name }}--{{ stu.age }}--{{ stu.gender }}</h1>
+    <p>{{ msg }}</p>
+    <p @click="stu.count++">{{ stu.count }}</p>
+    <!-- <button @click="changeAge">点我一下</button> -->
+    <h1>{{ stu.name }}</h1>
 </template>
