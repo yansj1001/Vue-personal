@@ -1,23 +1,24 @@
 <script setup>
 const props = defineProps(["item"])
-
-console.log(props.item.src,props.item.name,props.item.hot_bar);
+const bar_width = {
+    width:props.item.barWidth
+} 
 </script>
 <template>
-      <div class="tab-list">
-        <!-- 图片和排行 -->
-        <div class="photo">
-          <img :src="props.item.src" :alt="props.item.name">
-          <span>{{ props.item.rank }}</span>
-        </div>
-        <!-- 描述和热度 -->
-        <div class="desc">
-          <span>{{ props.item.name }}</span>
-          <div class="hot-bar">
-            <div class="bar" style="width: {{ props.item.hot_bar }};">{{ props.item.hot }}热度</div>
+<div class="tab-list">
+          <!-- 图片和排行 -->
+          <div class="photo">
+            <img :src="props.item.img" :alt="props.item.name">
+            <span>{{ props.item.rate }}</span>
+          </div>
+          <!-- 描述和热度 -->
+          <div class="desc">
+            <span>{{ props.item.name }}</span>
+            <div class="hot-bar">
+              <div class="bar">{{ props.item.hot }}热度</div>
+            </div>
           </div>
         </div>
-      </div>
 </template>
 <style scoped>
 /* 单个标签的样式 */
@@ -72,6 +73,7 @@ console.log(props.item.src,props.item.name,props.item.hot_bar);
 }
 /* 热度条样式 */
 .desc .bar{
+  width: v-bind('bar_width.width');
   white-space: nowrap;
   background-image: linear-gradient(90deg,rgb(211, 4, 4) 50%,rgb(65, 1, 1));
   text-indent: 0.5em;

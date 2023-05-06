@@ -1,14 +1,58 @@
 <script setup>
 import { ref, reactive } from "vue"
-//import MyTab from "./components/Mytab.vue"
+import PlayerTab from "./components/PlayerTab.vue"
+import TeamTab from "./components/TeamTab.vue";
+//判断当前位置，0--球员页面，1--球队页面
 let current = ref(0)
+//创建球员信息对象，代理为响应式数据用于传递给子组件
+//梅西
 const messi = reactive({
-  src: "/iamges/messi.png",
-  rank: 1,
-  name: "梅西",
-  hot: "433323",
-  hot_bar: "80%"
+  name:"梅西",
+  img:"/images/messi.png",
+  rate: 1,
+  hot: 433760,
+  barWidth:"100%"
 })
+//C罗
+const ronaldo = {
+  name:"C罗",
+  img:"/images/ronaldo.png",
+  rate:2,
+  hot:233967,
+  barWidth:"60%"
+}
+//内马尔
+const neymar = {
+  name:"内马尔",
+  img:"/images/neymar.png",
+  rate:3,
+  hot:222343,
+  barWidth:"50%"
+}
+//巴西
+const bx = {
+  name:"巴西",
+  img: "/images/巴西.jpg",
+  rate: 1,
+  hot: 422235,
+  barWidth: "100%"
+}
+//荷兰
+const hl = {
+  name: "荷兰",
+  img:"/images/荷兰.jpg",
+  rate:2,
+  hot:322561,
+  barWidth:"70%"
+}
+//法国
+const french = {
+  name: "法国",
+  img: "/images/法国.jpg",
+  rate:3,
+  hot: 222331,
+  barWidth: "40%"
+}
 </script>
 <template>
   <!-- 主容器 -->
@@ -23,40 +67,16 @@ const messi = reactive({
     <div class="main">
       <!-- 单个球员或者国家区域 -->
       <!-- 热门球员页面 -->
-      <div v-show="current===0">
-        <div class="tab-list">
-          <!-- 图片和排行 -->
-          <div class="photo">
-            <img src="/images/messi.png" alt="梅西">
-            <span>1</span>
-          </div>
-          <!-- 描述和热度 -->
-          <div class="desc">
-            <span>梅西</span>
-            <div class="hot-bar">
-              <div class="bar">483323热度</div>
-            </div>
-          </div>
-        </div>
-        <!-- <MyTab :item="messi"></MyTab> -->
-
+      <div v-show="current===0">    
+        <PlayerTab :item="messi"></PlayerTab>
+        <PlayerTab :item="ronaldo"></PlayerTab>
+        <PlayerTab :item="neymar"></PlayerTab>
       </div>
       <!-- 热门球队页面 -->
       <div v-show="current === 1">
-        <div class="tab-list">
-          <!-- 图片和排行 -->
-          <div class="photo">
-            <img src="/images/巴西.jpg" alt="巴西">
-            <span>1</span>
-          </div>
-          <!-- 描述和热度 -->
-          <div class="desc">
-            <span>巴西</span>
-            <div class="hot-bar">
-              <div class="bar">383323热度</div>
-            </div>
-          </div>
-        </div>
+        <TeamTab :item="bx"></TeamTab>
+        <TeamTab :item="hl"></TeamTab>
+        <TeamTab :item="french"></TeamTab>
       </div>
     </div>
   </div>
@@ -65,7 +85,7 @@ const messi = reactive({
 /* 主容器样式 */
 .container {
   width: 400px;
-  height: 400px;
+  height: 430px;
   box-sizing: border-box;
   background-color: rgb(52, 52, 230);
   padding: 20px;
@@ -103,66 +123,4 @@ const messi = reactive({
   background-color: rgb(253, 70, 70);
   color: #fff;
 }
-
-/* 单个标签的样式 */
-.tab-list {
-  display: flex;
-  margin-bottom: 20px;
-}
-
-/* 图片容器的样式 */
-.photo {
-  position: relative;
-  background-color: #fff;
-  width: 100px;
-  height: 100px;
-  border-radius: 20px;
-  overflow: hidden;
-  margin-right: 15px;
-}
-
-/* 图片的样式 */
-.photo img {
-  width: 100px;
-  height: 100px;
-}
-
-/* 排名的样式 */
-.photo span {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 35px;
-  height: 35px;
-  color: #fff;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-weight: 700;
-  border-bottom-right-radius: 10px;
-  background-color: #fa7822;
-}
-
-/* 名字及热度的样式 */
-.desc {
-  display: flex;
-  flex-flow: column;
-  flex: auto;
-  font-size: 20px;
-  color: #fff;
-  justify-content: space-around;
-}
-
-/* 热度条容器样式 */
-.desc .hot-bar {
-  border-radius: 15px;
-  background-color: #646362;
-  overflow: hidden;
-}
-
-/* 热度条样式 */
-.desc .bar {
-  background-image: linear-gradient(90deg, rgb(211, 4, 4) 50%, rgb(65, 1, 1));
-  text-indent: 0.5em;
-  border-radius: 15px;
-}</style>
+</style>
